@@ -1051,57 +1051,175 @@
 
         async function fetchAllContent() {
             try {
+                // Method 1: Try YouTube RSS Feed
                 const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
-                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`);
-                const data = await response.json();
                 
-                if (data.status.http_code !== 200) {
-                    throw new Error('Feed fetch failed');
+                // Try with CORS proxy
+                const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(feedUrl)}`;
+                
+                let response = await fetch(proxyUrl);
+                
+                if (!response.ok) {
+                    // Fallback to another proxy
+                    const altProxy = `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`;
+                    response = await fetch(altProxy);
+                    
+                    if (!response.ok) {
+                        throw new Error('All proxies failed');
+                    }
+                    
+                    const data = await response.json();
+                    parseYouTubeFeed(data.contents);
+                } else {
+                    const text = await response.text();
+                    parseYouTubeFeed(text);
                 }
 
+            } catch (error) {
+                console.error('Error fetching videos:', error);
+                // Try alternative method with direct fetch
+                loadVideosAlternative();
+            }
+        }
+
+        function parseYouTubeFeed(feedText) {
+            try {
                 const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
+                const xmlDoc = parser.parseFromString(feedText, 'text/xml');
+                
+                // Check for parsing errors
+                if (xmlDoc.getElementsByTagName('parsererror').length > 0) {
+                    throw new Error('XML parsing error');
+                }
+                
                 const entries = xmlDoc.querySelectorAll('entry');
+                
+                if (entries.length === 0) {
+                    throw new Error('No videos found in feed');
+                }
 
                 // Collect all videos
                 let tempContent = [];
                 entries.forEach((entry, index) => {
                     if (index === 0) return;
 
-                    const videoId = entry.querySelector('yt\\:videoId, videoId')?.textContent || 
-                                   entry.querySelector('id')?.textContent?.split('/').pop();
-                    const title = entry.querySelector('title')?.textContent;
-                    const publishedAt = new Date(entry.querySelector('published')?.textContent);
-                    const thumbnail = `https://i.ytimg.com/vi/${videoId}/sddefault.jpg`;
+                    try {
+                        const videoId = entry.querySelector('yt\\:videoId')?.textContent || 
+                                       entry.querySelector('videoId')?.textContent || 
+                                       entry.querySelector('id')?.textContent?.split('/').pop();
+                        
+                        const title = entry.querySelector('title')?.textContent;
+                        const publishedAt = new Date(entry.querySelector('published')?.textContent);
+                        const thumbnail = `https://i.ytimg.com/vi/${videoId}/sddefault.jpg`;
 
-                    tempContent.push({
-                        id: videoId,
-                        title: title,
-                        thumbnail: thumbnail,
-                        publishedAt: publishedAt
-                    });
+                        if (videoId && title) {
+                            tempContent.push({
+                                id: videoId,
+                                title: title,
+                                thumbnail: thumbnail,
+                                publishedAt: publishedAt
+                            });
+                        }
+                    } catch (e) {
+                        console.error('Error parsing entry:', e);
+                    }
                 });
 
-                // Sort by newest first (LATEST ON TOP)
+                if (tempContent.length === 0) {
+                    throw new Error('No valid videos parsed');
+                }
+
+                // Sort by newest first
                 tempContent.sort((a, b) => b.publishedAt - a.publishedAt);
 
-                // Smart separation: take shorter title videos as shorts
+                // Smart separation
                 allShorts = tempContent.filter(v => v.title.length < 100).slice(0, 20);
                 allVideos = tempContent.filter(v => v.title.length >= 100).slice(0, 60);
 
-                // If not enough videos, use all
                 if (allVideos.length < 10) {
                     allVideos = tempContent.slice(0, 50);
                 }
 
+                console.log(`Loaded ${allShorts.length} shorts and ${allVideos.length} videos`);
+                
                 renderCarousel();
                 renderVideosPage();
                 renderPlaylists();
 
             } catch (error) {
-                console.error('Error:', error);
-                loadDemoContent();
+                console.error('Error parsing feed:', error);
+                loadVideosAlternative();
             }
+        }
+
+        function loadVideosAlternative() {
+            // Fallback: Load demo with suggestion to use API key
+            console.log('Using alternative load method...');
+            
+            const banner = document.createElement('div');
+            banner.style.cssText = `
+                position: fixed;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(135deg, #FF9F6A, #FF6B6B);
+                color: white;
+                padding: 20px 30px;
+                border-radius: 50px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+                z-index: 1000;
+                font-weight: 600;
+                max-width: 90%;
+                text-align: center;
+            `;
+            banner.innerHTML = '⚠️ Videos loading... If they don\'t appear in 10 seconds, check your internet or add YouTube API key for guaranteed loading';
+            document.body.appendChild(banner);
+            
+            // Retry after 5 seconds
+            setTimeout(() => {
+                banner.innerHTML = '🔄 Retrying to load videos...';
+            }, 3000);
+            
+            setTimeout(() => {
+                banner.remove();
+            }, 10000);
+
+            // Load demo content while waiting
+            loadDemoVideos();
+        }
+
+        function loadDemoVideos() {
+            // Sample demo videos while real ones load
+            allShorts = [
+                {
+                    id: 'dQw4w9WgXcQ',
+                    title: 'Village Style Mini Mushroom Jelly 🍄',
+                    thumbnail: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/sddefault.jpg',
+                    publishedAt: new Date()
+                }
+            ];
+
+            allVideos = [
+                {
+                    id: 'jNQXAC9IVRw',
+                    title: 'Complete Guide to Cute Kitchen Setup',
+                    thumbnail: 'https://i.ytimg.com/vi/jNQXAC9IVRw/sddefault.jpg',
+                    publishedAt: new Date()
+                },
+                {
+                    id: '9bZkp7q19f0',
+                    title: 'How to Make Perfect Mini Recipes',
+                    thumbnail: 'https://i.ytimg.com/vi/9bZkp7q19f0/sddefault.jpg',
+                    publishedAt: new Date()
+                }
+            ];
+
+            renderCarousel();
+            renderVideosPage();
+            renderPlaylists();
+
+            // Retry real load after 10 seconds
+            setTimeout(fetchAllContent, 10000);
         }
 
         function renderCarousel() {
@@ -1259,26 +1377,6 @@
         function formatDate(date) {
             const options = { year: 'numeric', month: 'short', day: 'numeric' };
             return date.toLocaleDateString('en-US', options);
-        }
-
-        function loadDemoContent() {
-            const banner = document.createElement('div');
-            banner.style.cssText = `
-                position: fixed;
-                top: 80px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: linear-gradient(135deg, #4A90E2, #A8D5BA);
-                color: white;
-                padding: 15px 30px;
-                border-radius: 50px;
-                box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-                z-index: 1000;
-                font-weight: 600;
-            `;
-            banner.innerHTML = '🎉 Website ready! Real videos will load when online.';
-            document.body.appendChild(banner);
-            setTimeout(() => banner.remove(), 6000);
         }
 
         // Load content on page load

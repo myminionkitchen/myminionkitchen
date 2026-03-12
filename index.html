@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Minion Kitchen - Creative Cooking Channel</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #4A90E2;
+            --soft-blue: #6DB3F2;
+            --light-blue: #E8F4FF;
+            --light-green: #A8D5BA;
+            --pale-green: #E8F5E9;
+            --white: #FFFFFF;
+            --dark-gray: #2C3E50;
+            --light-gray: #F8FAFC;
+            --accent-orange: #FF9F6A;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.15);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--white);
+            color: var(--dark-gray);
+            overflow-x: hidden;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--soft-blue) 0%, var(--light-green) 50%, #F0E6D2 100%);
+            z-index: -1;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background: linear-gradient(135deg, var(--soft-blue) 0%, var(--light-green) 50%, #F0E6D2 100%);
+            }
+            50% {
+                background: linear-gradient(135deg, #7DB8FF 0%, #B8E6C5 50%, #FFE8D0 100%);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            animation: fadeInUp 1.2s ease;
+            max-width: 800px;
+            padding: 40px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: var(--shadow-lg);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--dark-gray);
+            margin-bottom: 20px;
+            font-weight: 900;
+            animation: slideIn 1s ease 0.3s both;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-tagline {
+            font-family: 'Lora', serif;
+            font-size: 1.3rem;
+            color: var(--dark-gray);
+            margin-bottom: 40px;
+            font-weight: 400;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.7s both;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-md);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue), var(--soft-blue));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            background: linear-gradient(135deg, #3A7FD2, #5BA0E2);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--light-green), #A8D5BA);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            background: linear-gradient(135deg, #98C9AB, #98C9AB);
+        }
+
+        /* NAVIGATION */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 40px;
+            z-index: 999;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--light-green));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* SHORTS SECTION - AUTO CAROUSEL */
+        .shorts-section {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, var(--pale-green) 0%, var(--light-blue) 100%);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--dark-gray);
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--light-green));
+            border-radius: 2px;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            background: transparent;
+        }
+
+        .carousel-wrapper {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .carousel-item {
+            position: relative;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            aspect-ratio: 9/16;
+            opacity: 0.6;
+            transition: all 0.5s ease;
+            transform: scale(0.9);
+        }
+
+        .carousel-item.active {
+            opacity: 1;
+            transform: scale(1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 20px;
+            color: white;
+            z-index: 10;
+        }
+
+        .carousel-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .carousel-date {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.85);
+            border: none;
+            color: var(--dark-gray);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+
+        .carousel-nav:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-nav.prev {
+            left: -30px;
+        }
+
+        .carousel-nav.next {
+            right: -30px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(74, 144, 226, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .dot.active {
+            background: var(--primary-blue);
+            width: 30px;
+            border-radius: 6px;
+            transform: scale(1.1);
+        }
+
+        .dot:hover {
+            background: var(--soft-blue);
+        }
+
+        /* VIDEOS SECTION */
+        .videos-section {
+            padding: 80px 40px;
+            background: var(--white);
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            cursor: pointer;
+            animation: slideUp 0.6s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .video-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: var(--light-gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(74, 144, 226, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .play-icon i {
+            color: white;
+            font-size: 24px;
+            margin-left: 4px;
+        }
+
+        .video-card:hover .play-icon {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-info {
+            padding: 25px;
+        }
+
+        .video-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 12px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-date {
+            font-size: 0.9rem;
+            color: #999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* PAGINATION */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .page-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--soft-blue);
+            background: white;
+            color: var(--soft-blue);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .page-btn.active {
+            background: linear-gradient(135deg, var(--primary-blue), var(--soft-blue));
+            color: white;
+            border-color: transparent;
+            transform: scale(1.15);
+        }
+
+        .page-btn.prev, .page-btn.next {
+            width: auto;
+            padding: 12px 20px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--soft-blue));
+            color: white;
+            border: none;
+        }
+
+        .page-btn.prev:hover, .page-btn.next:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* PLAYLISTS SECTION */
+        .playlists-section {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--pale-green) 100%);
+        }
+
+        .playlists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+
+        .playlist-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            cursor: pointer;
+            animation: slideUp 0.6s ease;
+        }
+
+        .playlist-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .playlist-thumbnail {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .playlist-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--accent-orange);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .playlist-info {
+            padding: 25px;
+        }
+
+        .playlist-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 10px;
+        }
+
+        .playlist-count {
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .playlist-view-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--soft-blue));
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .playlist-view-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ABOUT SECTION */
+        .about-section {
+            padding: 80px 40px;
+            background: var(--white);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--dark-gray);
+            margin-bottom: 40px;
+            font-family: 'Lora', serif;
+            margin-top: 40px;
+        }
+
+        .about-icons {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .about-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            animation: slideUp 0.6s ease;
+        }
+
+        .icon-circle {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border: 3px solid var(--light-blue);
+        }
+
+        .about-icon:hover .icon-circle {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-green));
+            color: white;
+            border-color: transparent;
+        }
+
+        /* SOCIAL SECTION */
+        .social-section {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, var(--pale-green) 0%, var(--light-blue) 100%);
+        }
+
+        .social-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .social-btn {
+            width: 180px;
+            padding: 25px;
+            background: white;
+            border: 2px solid var(--soft-blue);
+            border-radius: 20px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        .social-btn i {
+            font-size: 32px;
+        }
+
+        .social-btn.youtube {
+            color: #FF0000;
+            border-color: #FF0000;
+        }
+
+        .social-btn.youtube:hover {
+            background: #FF0000;
+            color: white;
+            transform: translateY(-8px);
+        }
+
+        .social-btn.instagram {
+            color: #E1306C;
+            border-color: #E1306C;
+        }
+
+        .social-btn.instagram:hover {
+            background: linear-gradient(45deg, #F09433 0%, #E6683C 25%, #DC2743 50%, #CC2366 75%, #BC1888 100%);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-8px);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark-gray);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-btn {
+            padding: 12px 30px;
+            background: var(--soft-blue);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .footer-btn:hover {
+            transform: translateY(-4px);
+            background: var(--primary-blue);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .footer-text {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-text a {
+            color: var(--accent-orange);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-text a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* LOADING STATE */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--soft-blue);
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--light-blue);
+            border-top: 4px solid var(--soft-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 60px 40px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 1024px) {
+            .carousel-wrapper {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .videos-grid, .playlists-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-buttons {
+                gap: 20px;
+            }
+
+            .social-btn {
+                width: 160px;
+            }
+
+            nav {
+                padding: 15px 20px;
+            }
+
+            .nav-logo {
+                font-size: 1.2rem;
+            }
+
+            .carousel-wrapper {
+                grid-template-columns: 1fr;
+                padding: 0;
+            }
+
+            .carousel-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .carousel-nav.prev {
+                left: -25px;
+            }
+
+            .carousel-nav.next {
+                right: -25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-logo">🍳 My Minion Kitchen</div>
+        <ul class="nav-links">
+            <li><a href="#shorts">Shorts</a></li>
+            <li><a href="#videos">Videos</a></li>
+            <li><a href="#playlists">Playlists</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#socials">Follow</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-logo">🧑‍🍳</div>
+            <h1>My Minion Kitchen</h1>
+            <p class="hero-tagline">Tiny Utensils, Mighty Flavors—Cooking Magic in Every Bite</p>
+            <div class="hero-buttons">
+                <a href="https://youtube.com/@myminionkitchen6201" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-youtube"></i> Watch on YouTube
+                </a>
+                <a href="https://www.instagram.com/_my_minion_kitchen_" target="_blank" class="btn btn-secondary">
+                    <i class="fab fa-instagram"></i> Follow on Instagram
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SHORTS SECTION - AUTO CAROUSEL -->
+    <section class="shorts-section" id="shorts">
+        <h2 class="section-title">📱 Latest Shorts</h2>
+        <div style="margin-top: 40px; position: relative; padding: 0 60px;">
+            <div class="carousel-container">
+                <button class="carousel-nav prev" onclick="prevCarouselPage()"><i class="fas fa-chevron-left"></i></button>
+                <div class="carousel-wrapper" id="carouselItems"></div>
+                <button class="carousel-nav next" onclick="nextCarouselPage()"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="carousel-dots" id="carouselDots"></div>
+        </div>
+    </section>
+
+    <!-- VIDEOS SECTION -->
+    <section class="videos-section" id="videos">
+        <h2 class="section-title">🎬 Full Videos</h2>
+        <div class="videos-grid" id="videosGrid"></div>
+        <div class="pagination" id="pagination"></div>
+    </section>
+
+    <!-- PLAYLISTS SECTION -->
+    <section class="playlists-section" id="playlists">
+        <h2 class="section-title">📚 Playlists</h2>
+        <div class="playlists-grid" id="playlistsGrid"></div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about-section" id="about">
+        <h2 class="section-title">👨‍🍳 Welcome to My Kitchen</h2>
+        <div class="about-content">
+            <p class="about-description">
+                Welcome to My Minion Kitchen, where culinary passion meets creative exploration! 🍽️ Here, I share the joy of crafting adorable recipes with tiny utensils and big imagination. From cute plating ideas to innovative cooking techniques, every video celebrates the art of creating delicious homemade dishes that taste as good as they look. Mini Chef Mode: ON! 👨‍🍳✨
+            </p>
+            <div class="about-icons">
+                <div class="about-icon">
+                    <div class="icon-circle">🎨</div>
+                    <p><strong>Creative Recipes</strong></p>
+                </div>
+                <div class="about-icon">
+                    <div class="icon-circle">✨</div>
+                    <p><strong>Cute Plating</strong></p>
+                </div>
+                <div class="about-icon">
+                    <div class="icon-circle">❤️</div>
+                    <p><strong>Homemade Love</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOCIAL SECTION -->
+    <section class="social-section" id="socials">
+        <h2 class="section-title">Connect With Me</h2>
+        <div class="social-content">
+            <p style="font-size: 1.1rem; color: var(--dark-gray); margin-bottom: 30px; margin-top: 40px;">Join the Minion Kitchen community and stay updated with the latest recipes and cooking tips!</p>
+            <div class="social-buttons">
+                <a href="https://youtube.com/@myminionkitchen6201" target="_blank" class="social-btn youtube">
+                    <i class="fab fa-youtube"></i>
+                    <span>YouTube</span>
+                    <small style="font-size: 0.8rem;">Subscribe</small>
+                </a>
+                <a href="https://www.instagram.com/_my_minion_kitchen_" target="_blank" class="social-btn instagram">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                    <small style="font-size: 0.8rem;">Follow</small>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-buttons">
+                <a href="https://youtube.com/@myminionkitchen6201" target="_blank" class="footer-btn">
+                    <i class="fab fa-youtube"></i> Subscribe
+                </a>
+                <a href="https://www.instagram.com/_my_minion_kitchen_" target="_blank" class="footer-btn">
+                    <i class="fab fa-instagram"></i> Follow
+                </a>
+            </div>
+            <p class="footer-text">
+                Made with ❤️ for <strong>My Minion Kitchen</strong> | 
+                <a href="https://youtube.com/@myminionkitchen6201" target="_blank">YouTube</a> • 
+                <a href="https://www.instagram.com/_my_minion_kitchen_" target="_blank">Instagram</a>
+                <br><br>
+                © 2024 My Minion Kitchen. All recipes, all love. 👨‍🍳✨
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const CHANNEL_ID = 'UCZglD7l75mZKf-sEwZtFndg';
+        
+        let allShorts = [];
+        let allVideos = [];
+        let allPlaylists = [];
+        let currentCarouselPage = 0;
+        let currentVideoPage = 1;
+        const SHORTS_PER_PAGE = 3;
+        const VIDEOS_PER_PAGE = 6;
+        let carouselAutoplay;
+
+        async function fetchAllContent() {
+            try {
+                const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
+                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`);
+                const data = await response.json();
+                
+                if (data.status.http_code !== 200) {
+                    throw new Error('Feed fetch failed');
+                }
+
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
+                const entries = xmlDoc.querySelectorAll('entry');
+
+                // Collect all videos
+                let tempContent = [];
+                entries.forEach((entry, index) => {
+                    if (index === 0) return;
+
+                    const videoId = entry.querySelector('yt\\:videoId, videoId')?.textContent || 
+                                   entry.querySelector('id')?.textContent?.split('/').pop();
+                    const title = entry.querySelector('title')?.textContent;
+                    const publishedAt = new Date(entry.querySelector('published')?.textContent);
+                    const thumbnail = `https://i.ytimg.com/vi/${videoId}/sddefault.jpg`;
+
+                    tempContent.push({
+                        id: videoId,
+                        title: title,
+                        thumbnail: thumbnail,
+                        publishedAt: publishedAt
+                    });
+                });
+
+                // Sort by newest first (LATEST ON TOP)
+                tempContent.sort((a, b) => b.publishedAt - a.publishedAt);
+
+                // Smart separation: take shorter title videos as shorts
+                allShorts = tempContent.filter(v => v.title.length < 100).slice(0, 20);
+                allVideos = tempContent.filter(v => v.title.length >= 100).slice(0, 60);
+
+                // If not enough videos, use all
+                if (allVideos.length < 10) {
+                    allVideos = tempContent.slice(0, 50);
+                }
+
+                renderCarousel();
+                renderVideosPage();
+                renderPlaylists();
+
+            } catch (error) {
+                console.error('Error:', error);
+                loadDemoContent();
+            }
+        }
+
+        function renderCarousel() {
+            if (allShorts.length === 0) {
+                document.getElementById('carouselItems').innerHTML = 
+                    '<div class="empty-state" style="grid-column: 1/-1;"><i class="fas fa-video"></i><p>Loading shorts...</p></div>';
+                return;
+            }
+
+            const startIdx = currentCarouselPage * SHORTS_PER_PAGE;
+            const pageShorts = allShorts.slice(startIdx, startIdx + SHORTS_PER_PAGE);
+
+            const container = document.getElementById('carouselItems');
+            container.innerHTML = pageShorts.map((short, idx) => `
+                <div class="carousel-item ${idx === 0 ? 'active' : ''}">
+                    <img src="${short.thumbnail}" alt="${short.title}" onclick="window.open('https://youtube.com/shorts/${short.id}', '_blank')">
+                    <div class="carousel-info">
+                        <div class="carousel-title">${short.title}</div>
+                        <div class="carousel-date">${formatDate(short.publishedAt)}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Create dots
+            const totalPages = Math.ceil(allShorts.length / SHORTS_PER_PAGE);
+            const dotsContainer = document.getElementById('carouselDots');
+            dotsContainer.innerHTML = Array.from({length: totalPages}, (_, idx) => `
+                <div class="dot ${idx === currentCarouselPage ? 'active' : ''}" onclick="goToCarouselPage(${idx})"></div>
+            `).join('');
+
+            startCarouselAutoplay();
+        }
+
+        function nextCarouselPage() {
+            const totalPages = Math.ceil(allShorts.length / SHORTS_PER_PAGE);
+            currentCarouselPage = (currentCarouselPage + 1) % totalPages;
+            renderCarousel();
+            resetCarouselAutoplay();
+        }
+
+        function prevCarouselPage() {
+            const totalPages = Math.ceil(allShorts.length / SHORTS_PER_PAGE);
+            currentCarouselPage = (currentCarouselPage - 1 + totalPages) % totalPages;
+            renderCarousel();
+            resetCarouselAutoplay();
+        }
+
+        function goToCarouselPage(idx) {
+            currentCarouselPage = idx;
+            renderCarousel();
+            resetCarouselAutoplay();
+        }
+
+        function startCarouselAutoplay() {
+            carouselAutoplay = setInterval(() => {
+                nextCarouselPage();
+            }, 5000); // 5 seconds
+        }
+
+        function resetCarouselAutoplay() {
+            clearInterval(carouselAutoplay);
+            startCarouselAutoplay();
+        }
+
+        function renderVideosPage() {
+            const startIdx = (currentVideoPage - 1) * VIDEOS_PER_PAGE;
+            const endIdx = startIdx + VIDEOS_PER_PAGE;
+            const pageVideos = allVideos.slice(startIdx, endIdx);
+
+            const grid = document.getElementById('videosGrid');
+            grid.innerHTML = pageVideos.map(video => `
+                <div class="video-card" onclick="window.open('https://youtube.com/watch?v=${video.id}', '_blank')">
+                    <div class="video-thumbnail">
+                        <img src="${video.thumbnail}" alt="${video.title}" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="play-icon">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-title">${video.title}</div>
+                        <div class="video-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            ${formatDate(video.publishedAt)}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(allVideos.length / VIDEOS_PER_PAGE);
+            const paginationDiv = document.getElementById('pagination');
+            
+            let html = '';
+
+            // Previous button
+            if (currentVideoPage > 1) {
+                html += `<button class="page-btn prev" onclick="goToPage(${currentVideoPage - 1})"><i class="fas fa-chevron-left"></i> Previous</button>`;
+            }
+
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentVideoPage - 1 && i <= currentVideoPage + 1)) {
+                    html += `<button class="page-btn ${i === currentVideoPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+                } else if (i === currentVideoPage - 2 || i === currentVideoPage + 2) {
+                    html += `<button class="page-btn" style="opacity: 0;">.</button>`;
+                }
+            }
+
+            // Next button
+            if (currentVideoPage < totalPages) {
+                html += `<button class="page-btn next" onclick="goToPage(${currentVideoPage + 1})">Next <i class="fas fa-chevron-right"></i></button>`;
+            }
+
+            paginationDiv.innerHTML = html;
+            window.scrollTo({ top: document.getElementById('videos').offsetTop - 100, behavior: 'smooth' });
+        }
+
+        function goToPage(page) {
+            currentVideoPage = page;
+            renderVideosPage();
+        }
+
+        function renderPlaylists() {
+            // Sample playlists - customize with real data
+            const playlists = [
+                { id: 'PLjA_playlist_1', title: 'Mini Non-Veg Series 🍗', count: 5 },
+                { id: 'PLjA_playlist_2', title: 'Mini Fish Series 🐟', count: 4 },
+                { id: 'PLjA_playlist_3', title: 'Mini Variety Rice 🍚', count: 3 },
+                { id: 'PLjA_playlist_4', title: 'Mini Biryani 🍛', count: 6 },
+                { id: 'PLjA_playlist_5', title: 'Dessert Collection 🍰', count: 8 },
+                { id: 'PLjA_playlist_6', title: 'Mini Tiffin Series 🥘', count: 5 }
+            ];
+
+            const grid = document.getElementById('playlistsGrid');
+            grid.innerHTML = playlists.map(p => `
+                <div class="playlist-card" onclick="window.open('https://www.youtube.com/@myminionkitchen6201/playlists', '_blank')">
+                    <div class="playlist-thumbnail">
+                        🎬
+                        <div class="playlist-badge">${p.count} videos</div>
+                    </div>
+                    <div class="playlist-info">
+                        <div class="playlist-title">${p.title}</div>
+                        <div class="playlist-count">${p.count} videos in this series</div>
+                        <button class="playlist-view-btn" onclick="event.stopPropagation(); window.open('https://www.youtube.com/@myminionkitchen6201/playlists', '_blank');">
+                            View Playlist <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function formatDate(date) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        function loadDemoContent() {
+            const banner = document.createElement('div');
+            banner.style.cssText = `
+                position: fixed;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(135deg, #4A90E2, #A8D5BA);
+                color: white;
+                padding: 15px 30px;
+                border-radius: 50px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+                z-index: 1000;
+                font-weight: 600;
+            `;
+            banner.innerHTML = '🎉 Website ready! Real videos will load when online.';
+            document.body.appendChild(banner);
+            setTimeout(() => banner.remove(), 6000);
+        }
+
+        // Load content on page load
+        window.addEventListener('load', fetchAllContent);
+
+        // Refresh every 30 minutes
+        setInterval(fetchAllContent, 30 * 60 * 1000);
+    </script>
+</body>
+</html>

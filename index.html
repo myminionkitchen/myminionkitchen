@@ -7,100 +7,91 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --primary-blue: #4A90E2;
-            --soft-blue: #6DB3F2;
-            --light-blue: #E8F4FF;
-            --light-green: #A8D5BA;
-            --pale-green: #E8F5E9;
+            --rose-dark: #D4526E;
+            --rose-light: #F8C7D4;
+            --rose-pale: #FFE5EB;
+            --gold: #D4AF37;
             --white: #FFFFFF;
             --dark-gray: #2C3E50;
-            --light-gray: #F8FAFC;
-            --accent-orange: #FF9F6A;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
             --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.15);
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--white);
+            background: var(--white);
             color: var(--dark-gray);
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* HERO SECTION */
+        /* ROSE PETALS - REACT TO MOUSE */
+        .rose-petal {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(ellipse at 30% 30%, #FFB3D9, var(--rose-dark));
+            border-radius: 0 100%;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall 10s infinite linear;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotateZ(360deg); opacity: 0; }
+        }
+
+        .rose-petal:nth-child(1) { left: 5%; animation-delay: 0s; }
+        .rose-petal:nth-child(2) { left: 15%; animation-delay: 1.5s; }
+        .rose-petal:nth-child(3) { left: 25%; animation-delay: 3s; }
+        .rose-petal:nth-child(4) { left: 35%; animation-delay: 1s; }
+        .rose-petal:nth-child(5) { left: 45%; animation-delay: 2.5s; }
+        .rose-petal:nth-child(6) { left: 55%; animation-delay: 0.5s; }
+        .rose-petal:nth-child(7) { left: 65%; animation-delay: 2s; }
+        .rose-petal:nth-child(8) { left: 75%; animation-delay: 3.5s; }
+        .rose-petal:nth-child(9) { left: 85%; animation-delay: 1.2s; }
+        .rose-petal:nth-child(10) { left: 95%; animation-delay: 2.8s; }
+
+        /* HERO */
         .hero {
             position: relative;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: linear-gradient(135deg, var(--rose-pale) 0%, #FFF0F5 50%, #FFE5EB 100%);
             overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, var(--soft-blue) 0%, var(--light-green) 50%, #F0E6D2 100%);
-            z-index: -1;
-            animation: gradientShift 8s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% {
-                background: linear-gradient(135deg, var(--soft-blue) 0%, var(--light-green) 50%, #F0E6D2 100%);
-            }
-            50% {
-                background: linear-gradient(135deg, #7DB8FF 0%, #B8E6C5 50%, #FFE8D0 100%);
-            }
         }
 
         .hero-content {
             text-align: center;
-            z-index: 1;
+            z-index: 10;
             animation: fadeInUp 1.2s ease;
             max-width: 800px;
             padding: 40px;
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-logo {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             margin: 0 auto 30px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--light-green));
+            background: linear-gradient(135deg, var(--rose-dark), var(--gold));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 60px;
+            font-size: 70px;
             box-shadow: var(--shadow-lg);
             animation: float 3s ease-in-out infinite;
+            border: 4px solid white;
         }
 
         @keyframes float {
@@ -110,31 +101,18 @@
 
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            color: var(--dark-gray);
+            font-size: 4.5rem;
+            background: linear-gradient(135deg, var(--rose-dark), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
-            font-weight: 900;
-            animation: slideIn 1s ease 0.3s both;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
         }
 
         .hero-tagline {
             font-family: 'Lora', serif;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--dark-gray);
             margin-bottom: 40px;
-            font-weight: 400;
-            animation: fadeInUp 1s ease 0.5s both;
         }
 
         .hero-buttons {
@@ -142,7 +120,6 @@
             gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
-            animation: fadeInUp 1s ease 0.7s both;
         }
 
         .btn {
@@ -157,31 +134,31 @@
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            box-shadow: var(--shadow-md);
-            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-blue), var(--soft-blue));
+            background: linear-gradient(135deg, var(--rose-dark), var(--gold));
             color: white;
         }
 
         .btn-primary:hover {
             transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 12px 32px rgba(212, 82, 110, 0.4);
         }
 
         .btn-secondary {
-            background: linear-gradient(135deg, var(--light-green), #A8D5BA);
-            color: white;
+            background: white;
+            color: var(--rose-dark);
+            border: 2px solid var(--rose-dark);
         }
 
         .btn-secondary:hover {
+            background: var(--rose-pale);
             transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
         }
 
-        /* NAVIGATION */
+        /* NAV */
         nav {
             position: fixed;
             top: 0;
@@ -190,7 +167,7 @@
             backdrop-filter: blur(10px);
             padding: 20px 40px;
             z-index: 999;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -198,9 +175,9 @@
 
         .nav-logo {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--primary-blue), var(--light-green));
+            background: linear-gradient(135deg, var(--rose-dark), var(--gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -226,7 +203,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--light-green));
+            background: linear-gradient(90deg, var(--rose-dark), var(--gold));
             transition: width 0.3s ease;
         }
 
@@ -234,15 +211,18 @@
             width: 100%;
         }
 
-        /* SHORTS SECTION */
-        .shorts-section {
-            padding: 80px 40px;
-            background: linear-gradient(135deg, var(--pale-green) 0%, var(--light-blue) 100%);
+        /* SECTIONS */
+        .section {
+            padding: 100px 40px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--dark-gray);
             text-align: center;
             margin-bottom: 60px;
@@ -257,106 +237,68 @@
             bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
+            width: 100px;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--light-green));
-            border-radius: 2px;
+            background: linear-gradient(90deg, var(--rose-dark), var(--gold));
         }
 
-        .carousel-wrapper {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            position: relative;
-            padding: 20px 0;
-            max-width: 1200px;
+        /* SHORTS SECTION */
+        .shorts-section { background: linear-gradient(135deg, var(--rose-pale) 0%, white 100%); }
+
+        .carousel-container {
+            max-width: 1400px;
             margin: 0 auto;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            overflow: visible;
         }
 
-        .carousel-item {
-            position: relative;
+        .short-card {
+            width: 200px;
+            height: 320px;
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: var(--shadow-md);
-            aspect-ratio: 9/16;
-            opacity: 0.6;
-            transition: all 0.5s ease;
-            transform: scale(0.9);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
             cursor: pointer;
+            transition: all 0.4s ease;
+            animation: slideUp 0.6s ease;
+            flex-shrink: 0;
+            border: 3px solid transparent;
         }
 
-        .carousel-item.active {
-            opacity: 1;
-            transform: scale(1);
-            box-shadow: var(--shadow-lg);
+        .short-card:hover {
+            border-color: var(--rose-light);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(212, 82, 110, 0.2);
         }
 
-        .carousel-item img {
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .short-card a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+        }
+
+        .short-thumbnail {
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
-
-        .carousel-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            padding: 20px;
-            color: white;
-        }
-
-        .carousel-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 6px;
-            line-height: 1.3;
-        }
-
-        .carousel-date {
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.85);
-            border: none;
-            color: var(--dark-gray);
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            z-index: 20;
-        }
-
-        .carousel-nav:hover {
-            background: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .carousel-nav.prev {
-            left: -30px;
-        }
-
-        .carousel-nav.next {
-            right: -30px;
+            background: linear-gradient(135deg, var(--rose-light), var(--gold));
         }
 
         .carousel-dots {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             justify-content: center;
-            margin-top: 30px;
+            margin-top: 40px;
             flex-wrap: wrap;
         }
 
@@ -364,66 +306,67 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(74, 144, 226, 0.3);
+            background: rgba(212, 82, 110, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .dot:hover {
+            background: rgba(212, 82, 110, 0.6);
         }
 
         .dot.active {
-            background: var(--primary-blue);
+            background: var(--rose-dark);
             width: 30px;
             border-radius: 6px;
-            transform: scale(1.1);
+            transform: scale(1.2);
         }
 
         /* VIDEOS SECTION */
-        .videos-section {
-            padding: 80px 40px;
-            background: var(--white);
-        }
+        .videos-section { background: white; }
 
         .videos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 40px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
             max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
         }
 
         .video-card {
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
             transition: all 0.4s ease;
             cursor: pointer;
+            border: 2px solid transparent;
             animation: slideUp 0.6s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .video-card:hover {
             transform: translateY(-12px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 20px 40px rgba(212, 82, 110, 0.2);
+            border-color: var(--rose-light);
+        }
+
+        .video-card a {
+            display: block;
+            text-decoration: none;
+            color: inherit;
         }
 
         .video-thumbnail {
             width: 100%;
-            height: 200px;
+            height: 180px;
+            background: linear-gradient(135deg, var(--rose-light), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
             overflow: hidden;
-            background: var(--light-gray);
+            font-size: 60px;
         }
 
         .video-thumbnail img {
@@ -434,24 +377,17 @@
 
         .play-icon {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             width: 60px;
             height: 60px;
-            background: rgba(74, 144, 226, 0.9);
+            background: rgba(212, 82, 110, 0.9);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 24px;
+            color: white;
             opacity: 0;
             transition: opacity 0.3s ease;
-        }
-
-        .play-icon i {
-            color: white;
-            font-size: 24px;
-            margin-left: 4px;
         }
 
         .video-card:hover .play-icon {
@@ -459,81 +395,32 @@
         }
 
         .video-info {
-            padding: 25px;
+            padding: 20px;
         }
 
         .video-title {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             color: var(--dark-gray);
-            margin-bottom: 12px;
-            line-height: 1.5;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
-        .video-date {
-            font-size: 0.9rem;
-            color: #999;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 40px;
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .page-btn {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: 2px solid var(--soft-blue);
-            background: white;
-            color: var(--soft-blue);
-            cursor: pointer;
+        .video-type {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            background: var(--rose-pale);
+            color: var(--rose-dark);
+            border-radius: 20px;
             font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin-top: 8px;
         }
 
-        .page-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .page-btn.active {
-            background: linear-gradient(135deg, var(--primary-blue), var(--soft-blue));
-            color: white;
-            border-color: transparent;
-            transform: scale(1.15);
-        }
-
-        .page-btn.prev, .page-btn.next {
-            width: auto;
-            padding: 12px 20px;
-            border-radius: 25px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--soft-blue));
-            color: white;
-            border: none;
-        }
-
-        /* ABOUT SECTION */
-        .about-section {
-            padding: 80px 40px;
-            background: var(--white);
-        }
+        /* ABOUT */
+        .about-section { background: linear-gradient(135deg, var(--rose-pale) 0%, white 100%); }
 
         .about-content {
             max-width: 900px;
@@ -542,55 +429,47 @@
         }
 
         .about-description {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             line-height: 1.8;
             color: var(--dark-gray);
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             font-family: 'Lora', serif;
-            margin-top: 40px;
         }
 
         .about-icons {
             display: flex;
-            gap: 40px;
+            gap: 50px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 40px;
         }
 
         .about-icon {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
         .icon-circle {
-            width: 70px;
-            height: 70px;
-            background: white;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--rose-dark), var(--gold));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
-            box-shadow: var(--shadow-md);
+            font-size: 40px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
             transition: all 0.3s ease;
-            border: 3px solid var(--light-blue);
         }
 
         .about-icon:hover .icon-circle {
             transform: translateY(-8px);
-            background: linear-gradient(135deg, var(--primary-blue), var(--light-green));
-            color: white;
-            border-color: transparent;
+            box-shadow: 0 15px 35px rgba(212, 82, 110, 0.3);
         }
 
-        /* SOCIAL SECTION */
-        .social-section {
-            padding: 80px 40px;
-            background: linear-gradient(135deg, var(--pale-green) 0%, var(--light-blue) 100%);
-        }
+        /* SOCIAL */
+        .social-section { background: white; }
 
         .social-content {
             max-width: 900px;
@@ -600,66 +479,43 @@
 
         .social-buttons {
             display: flex;
-            gap: 30px;
+            gap: 40px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 40px;
+            margin-top: 50px;
         }
 
         .social-btn {
-            width: 180px;
-            padding: 25px;
-            background: white;
-            border: 2px solid var(--soft-blue);
+            width: 200px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--rose-pale), white);
+            border: 2px solid var(--rose-dark);
             border-radius: 20px;
             text-decoration: none;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
-            cursor: pointer;
+            gap: 15px;
             transition: all 0.3s ease;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .social-btn:hover {
+            background: linear-gradient(135deg, var(--rose-dark), var(--gold));
+            color: white;
+            transform: translateY(-8px);
         }
 
         .social-btn i {
-            font-size: 32px;
-        }
-
-        .social-btn.youtube {
-            color: #FF0000;
-            border-color: #FF0000;
-        }
-
-        .social-btn.youtube:hover {
-            background: #FF0000;
-            color: white;
-            transform: translateY(-8px);
-        }
-
-        .social-btn.instagram {
-            color: #E1306C;
-            border-color: #E1306C;
-        }
-
-        .social-btn.instagram:hover {
-            background: linear-gradient(45deg, #F09433, #E6683C, #DC2743, #CC2366, #BC1888);
-            color: white;
-            border-color: transparent;
-            transform: translateY(-8px);
+            font-size: 40px;
         }
 
         /* FOOTER */
         footer {
-            background: var(--dark-gray);
+            background: linear-gradient(135deg, var(--dark-gray), #1a1a1a);
             color: white;
-            padding: 40px;
+            padding: 50px 40px;
             text-align: center;
-        }
-
-        .footer-content {
-            max-width: 900px;
-            margin: 0 auto;
         }
 
         .footer-buttons {
@@ -672,98 +528,45 @@
 
         .footer-btn {
             padding: 12px 30px;
-            background: var(--soft-blue);
+            background: linear-gradient(135deg, var(--rose-dark), var(--gold));
             color: white;
             border: none;
             border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
             font-weight: 600;
+            transition: all 0.3s ease;
         }
 
         .footer-btn:hover {
             transform: translateY(-4px);
-            background: var(--primary-blue);
-        }
-
-        .footer-text {
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .footer-text a {
-            color: var(--accent-orange);
-            text-decoration: none;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 60px 40px;
-            font-size: 1.2rem;
-            color: var(--soft-blue);
-        }
-
-        .spinner {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            border: 4px solid var(--light-blue);
-            border-top: 4px solid var(--soft-blue);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 1024px) {
-            .carousel-wrapper {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            box-shadow: 0 10px 25px rgba(212, 82, 110, 0.4);
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .carousel-wrapper {
-                grid-template-columns: 1fr;
-                padding: 0;
-            }
-
-            .carousel-nav {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
-            }
-
-            .carousel-nav.prev {
-                left: -25px;
-            }
-
-            .carousel-nav.next {
-                right: -25px;
-            }
-
-            .videos-grid {
-                grid-template-columns: 1fr;
-            }
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .videos-grid { grid-template-columns: 1fr; }
+            .short-card { width: 200px; height: 320px; }
         }
     </style>
 </head>
 <body>
-    <!-- NAVIGATION -->
+    <!-- ROSE PETALS -->
+    <div class="rose-petal"></div>
+    <div class="rose-petal"></div>
+    <div class="rose-petal"></div>
+    <div class="rose-petal"></div>
+    <div class="rose-petal"></div>
+    <div class="rose-petal"></div>
+    <div class="rose-petal"></div>
+    <div class="rose-petal"></div>
+    <div class="rose-petal"></div>
+    <div class="rose-petal"></div>
+
+    <!-- NAV -->
     <nav>
         <div class="nav-logo">🍳 My Minion Kitchen</div>
         <ul class="nav-links">
@@ -774,76 +577,75 @@
         </ul>
     </nav>
 
-    <!-- HERO SECTION -->
+    <!-- HERO -->
     <section class="hero" id="home">
         <div class="hero-content">
             <div class="hero-logo">🧑‍🍳</div>
             <h1>My Minion Kitchen</h1>
-            <p class="hero-tagline">Tiny Utensils, Mighty Flavors—Cooking Magic in Every Bite</p>
+            <p class="hero-tagline">Tiny Utensils, Mighty Flavors ✨</p>
             <div class="hero-buttons">
                 <a href="https://youtube.com/@myminionkitchen6201" target="_blank" class="btn btn-primary">
-                    <i class="fab fa-youtube"></i> Watch on YouTube
+                    <i class="fab fa-youtube"></i> YouTube
                 </a>
                 <a href="https://www.instagram.com/_my_minion_kitchen_" target="_blank" class="btn btn-secondary">
-                    <i class="fab fa-instagram"></i> Follow on Instagram
+                    <i class="fab fa-instagram"></i> Instagram
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- SHORTS SECTION -->
-    <section class="shorts-section" id="shorts">
+    <!-- SHORTS -->
+    <section class="section shorts-section" id="shorts">
         <h2 class="section-title">📱 Latest Shorts</h2>
-        <div style="position: relative; padding: 0 60px; margin-top: 50px;">
-            <button class="carousel-nav prev" onclick="prevPage()"><i class="fas fa-chevron-left"></i></button>
-            <div class="carousel-wrapper" id="shortsContainer"></div>
-            <button class="carousel-nav next" onclick="nextPage()"><i class="fas fa-chevron-right"></i></button>
+        <div class="carousel-container" id="shortsCarousel"></div>
+        <div class="carousel-dots" id="shortsDots"></div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section videos-section" id="videos">
+        <h2 class="section-title">🎬 All Videos</h2>
+        <div class="videos-grid" id="videosGrid"></div>
+        <div style="text-align: center; margin-top: 50px;">
+            <button onclick="prevVideoPage()" class="btn btn-primary" style="margin-right: 20px;">← Previous</button>
+            <span id="videoPageNum" style="font-size: 1.2rem; color: var(--dark-gray); margin: 0 20px;"></span>
+            <button onclick="nextVideoPage()" class="btn btn-primary" style="margin-left: 20px;">Next →</button>
         </div>
-        <div class="carousel-dots" id="dotsContainer"></div>
     </section>
 
-    <!-- VIDEOS SECTION -->
-    <section class="videos-section" id="videos">
-        <h2 class="section-title">🎬 Full Videos</h2>
-        <div class="videos-grid" id="videosContainer"></div>
-        <div class="pagination" id="pagination"></div>
-    </section>
-
-    <!-- ABOUT SECTION -->
-    <section class="about-section" id="about">
-        <h2 class="section-title">👨‍🍳 Welcome to My Kitchen</h2>
+    <!-- ABOUT -->
+    <section class="section about-section" id="about">
+        <h2 class="section-title">👨‍🍳 Welcome</h2>
         <div class="about-content">
             <p class="about-description">
-                Welcome to My Minion Kitchen, where culinary passion meets creative exploration! 🍽️ Here, I share the joy of crafting adorable recipes with tiny utensils and big imagination. From cute plating ideas to innovative cooking techniques, every video celebrates the art of creating delicious homemade dishes that taste as good as they look. Mini Chef Mode: ON! 👨‍🍳✨
+                Welcome to My Minion Kitchen! Where tiny utensils meet big imagination. Creative recipes, cute plating, homemade love. 🍽️✨
             </p>
             <div class="about-icons">
                 <div class="about-icon">
                     <div class="icon-circle">🎨</div>
-                    <p><strong>Creative Recipes</strong></p>
+                    <p><strong>Creative</strong></p>
                 </div>
                 <div class="about-icon">
                     <div class="icon-circle">✨</div>
-                    <p><strong>Cute Plating</strong></p>
+                    <p><strong>Beautiful</strong></p>
                 </div>
                 <div class="about-icon">
                     <div class="icon-circle">❤️</div>
-                    <p><strong>Homemade Love</strong></p>
+                    <p><strong>Loving</strong></p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SOCIAL SECTION -->
-    <section class="social-section" id="socials">
-        <h2 class="section-title">Connect With Me</h2>
+    <!-- SOCIAL -->
+    <section class="section social-section" id="socials">
+        <h2 class="section-title">Connect</h2>
         <div class="social-content">
-            <p style="font-size: 1.1rem; color: var(--dark-gray); margin-bottom: 30px; margin-top: 40px;">Join the Minion Kitchen community!</p>
             <div class="social-buttons">
-                <a href="https://youtube.com/@myminionkitchen6201" target="_blank" class="social-btn youtube">
+                <a href="https://youtube.com/@myminionkitchen6201" target="_blank" class="social-btn">
                     <i class="fab fa-youtube"></i>
                     <span>YouTube</span>
                 </a>
-                <a href="https://www.instagram.com/_my_minion_kitchen_" target="_blank" class="social-btn instagram">
+                <a href="https://www.instagram.com/_my_minion_kitchen_" target="_blank" class="social-btn">
                     <i class="fab fa-instagram"></i>
                     <span>Instagram</span>
                 </a>
@@ -853,178 +655,153 @@
 
     <!-- FOOTER -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-buttons">
-                <a href="https://youtube.com/@myminionkitchen6201" target="_blank" class="footer-btn">
-                    <i class="fab fa-youtube"></i> Subscribe
-                </a>
-                <a href="https://www.instagram.com/_my_minion_kitchen_" target="_blank" class="footer-btn">
-                    <i class="fab fa-instagram"></i> Follow
-                </a>
-            </div>
-            <p class="footer-text">
-                © 2024 My Minion Kitchen. Made with ❤️
-            </p>
+        <div class="footer-buttons">
+            <a href="https://youtube.com/@myminionkitchen6201" target="_blank" class="footer-btn">
+                <i class="fab fa-youtube"></i> Subscribe
+            </a>
+            <a href="https://www.instagram.com/_my_minion_kitchen_" target="_blank" class="footer-btn">
+                <i class="fab fa-instagram"></i> Follow
+            </a>
         </div>
+        <p style="margin-top: 30px; opacity: 0.9;">
+            © 2024 My Minion Kitchen. Made with ❤️
+        </p>
     </footer>
 
     <script>
-        const CHANNEL_ID = 'UCZglD7l75mZKf-sEwZtFndg';
-        const SHORTS_PER_PAGE = 3;
-        const VIDEOS_PER_PAGE = 6;
+        // SHORTS DATA
+        const shorts = [
+            "FByZ9zgW_EY", "kLmo7I-c3lU", "B43YwLj1XlE", "_NjJ5zmbNvI", "1yFaW2UfBvc",
+            "UZxcTflXLs8", "cdjCRUV4GHQ", "2cxZX8v8PA4", "3P06wjPW2PU", "T1KkYRUqis0",
+            "NmiHg9uzMnQ", "ol5EUKon41E", "c40UpsMmJ5c", "I1LOIOrwe5A", "O1ek7K3qEXk",
+            "0MGGKjJIuJQ", "u3Rrg7rUnf0", "BaPhOuYeCQw", "1Mh4-z1X2uI", "3mHX1Bn7xSI",
+            "v88IGnQIzjU", "ze6uvxjamRg", "M2Y3c-Fuvq0", "ik6wszgjx14", "ht9UErXdGyc",
+            "ukJ5XHM2qwQ", "4LvQbiX76kc", "iH1PuNV0Nx0", "sayt_o7ZjxE", "pqiUkoXFv0M",
+            "_JCUia5PIlk", "hoi2ciAVEQ8", "UKwLnjaGhc8", "3DCRk3E9dTE", "Ge7k7W-wWp8",
+            "3ca8Gz3RCkY", "7QLtU-zu1Hw", "1XZ-fX71eaM", "j9JAOISAmjg", "vgPHTOusbhI",
+            "2N868F4rv9I", "Q6gVCCjeyg0", "sxA3HujxaSs", "XeJzrEV7tig", "27OVt4rfmkk",
+            "Xhns1ZAu3w0", "CO8W5NKsVdg", "Hk4sE3Unq_M", "tBeURPNRCkk", "NlgyUdjwv2E",
+            "xOF__Do9HQM", "MjEARVHOZQE", "0kR_E-Q6N_M", "xyFrE0YY1Zc", "7Hx9nj7mB4g",
+            "yHIMK8i45sw", "Jqbu81Pzflc", "ke6hhHDQ4Eo", "-xNQnzXzyxo", "DnmQpkqBifk",
+            "B63TQyHASdM", "25n2tPnTz2U", "tDerav3RFiE", "P5HKtMBVkV8", "kZY0INpIToU",
+            "mNl8DL2-9yE", "I55xJFJ2feo", "vzmJqyIjj7U", "FrXmZAu-2z0", "MKDNuFYWUKk",
+            "HAGqwQhTjM0"
+        ];
 
-        let allData = [];
-        let currentPage = 0;
+        // VIDEOS DATA
+        const videos = [
+            "7sF9Hi22Bzg", "m_KXq1dMmIc", "tyskCDeOtLU", "peAmB4IaVAM", "3c3Vmjd5fFw",
+            "rV7-NJ5S5JA", "s2iCUSAHKb4", "2n5HmdgoxbI", "iVPx7Xiybb0", "oRr8MZXc7Jk",
+            "ItJP58YD-Ek", "TyCwc4rOYxU", "T-BILUaim4g", "AHuPqR60OGY", "XUqnLHIfjHs",
+            "q3xhqhgqzkI", "b2ds_lQAOnQ", "1-lx8Sc4lsU", "IcanXFqG-SM", "BLkNZY_1WwY",
+            "GSLlGSAduxo", "AGocJtJVgQA", "pJ2ENe-1Cek", "cb89VoqRQb0", "AzT-34gX31o",
+            "jwa9UVgRolg", "Hiiq7buHFxA", "0ITTZkvJeow", "LQfTQg4JKvc", "YTHDihAaU9w",
+            "W01N6syIcDk", "AYH1iveLwek", "t0GrxnpgKG8", "2EP4PkfjXOI", "W-y4A8VdvPo",
+            "z6huXidzgfQ", "LWYXr9OX1Yo", "RVqwBXjUcKA", "NGq53VzB0_A", "ScHJeqc2l3U",
+            "wEJvvLfoCq8"
+        ];
+
+        let shortPage = 0;
         let videoPage = 1;
-        let autoplayInterval;
+        const SHORTS_PER_PAGE = 5;
+        const VIDEOS_PER_PAGE = 8;
 
-        async function loadVideos() {
-            try {
-                console.log('🎬 Loading videos...');
-                
-                // YouTube RSS Feed - Simple & Direct
-                const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
-                
-                // Use a simple CORS proxy
-                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`);
-                const result = await response.json();
-                
-                const parser = new DOMParser();
-                const xml = parser.parseFromString(result.contents, 'text/xml');
-                const entries = xml.querySelectorAll('entry');
-                
-                console.log(`✅ Found ${entries.length} entries`);
-                
-                allData = [];
-                
-                entries.forEach((entry, idx) => {
-                    if (idx === 0) return; // Skip channel info
-                    
-                    const id = entry.querySelector('yt\\:videoId')?.textContent || 
-                               entry.querySelector('id')?.textContent?.split('/').pop();
-                    const title = entry.querySelector('title')?.textContent;
-                    const published = entry.querySelector('published')?.textContent;
-                    const thumb = `https://i.ytimg.com/vi/${id}/sddefault.jpg`;
-                    
-                    if (id && title) {
-                        allData.push({
-                            id: id,
-                            title: title,
-                            thumb: thumb,
-                            date: new Date(published)
-                        });
-                    }
-                });
-                
-                console.log(`✅ Loaded ${allData.length} videos`);
-                
-                renderShorts();
-                renderVideos();
-                
-            } catch (error) {
-                console.error('❌ Error:', error);
-                document.getElementById('shortsContainer').innerHTML = '<div class="loading"><p>⚠️ Error loading videos. Please refresh.</p></div>';
-            }
-        }
-
+        // RENDER SHORTS
         function renderShorts() {
-            const start = currentPage * SHORTS_PER_PAGE;
-            const shorts = allData.slice(start, start + SHORTS_PER_PAGE);
+            const start = shortPage * SHORTS_PER_PAGE;
+            const pageShorts = shorts.slice(start, start + SHORTS_PER_PAGE);
             
-            const html = shorts.map((v, i) => `
-                <div class="carousel-item ${i === 0 ? 'active' : ''}" onclick="openVideo('${v.id}')">
-                    <img src="${v.thumb}" alt="${v.title}">
-                    <div class="carousel-info">
-                        <div class="carousel-title">${v.title}</div>
-                        <div class="carousel-date">${v.date.toLocaleDateString()}</div>
-                    </div>
+            const carousel = document.getElementById('shortsCarousel');
+            carousel.innerHTML = pageShorts.map((id) => `
+                <div class="short-card">
+                    <a href="https://youtube.com/shorts/${id}" target="_blank">
+                        <img src="https://i.ytimg.com/vi/${id}/sddefault.jpg" class="short-thumbnail" alt="Short" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22320%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22200%22 height=%22320%22/%3E%3C/svg%3E'">
+                    </a>
                 </div>
             `).join('');
-            
-            document.getElementById('shortsContainer').innerHTML = html;
-            
-            // Dots
-            const totalPages = Math.ceil(allData.length / SHORTS_PER_PAGE);
-            const dots = Array.from({length: totalPages}, (_, i) => `
-                <div class="dot ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})"></div>
+
+            const totalPages = Math.ceil(shorts.length / SHORTS_PER_PAGE);
+            const dots = document.getElementById('shortsDots');
+            dots.innerHTML = Array.from({length: totalPages}, (_, i) => `
+                <div class="dot ${i === shortPage ? 'active' : ''}" onclick="goToShortPage(${i})"></div>
             `).join('');
-            document.getElementById('dotsContainer').innerHTML = dots;
-            
-            startAutoplay();
         }
 
+        // RENDER VIDEOS
         function renderVideos() {
             const start = (videoPage - 1) * VIDEOS_PER_PAGE;
-            const videos = allData.slice(start, start + VIDEOS_PER_PAGE);
+            const pageVideos = videos.slice(start, start + VIDEOS_PER_PAGE);
             
-            const html = videos.map(v => `
-                <div class="video-card" onclick="openVideo('${v.id}')">
-                    <div class="video-thumbnail">
-                        <img src="${v.thumb}">
-                        <div class="play-icon"><i class="fas fa-play"></i></div>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-title">${v.title}</div>
-                        <div class="video-date"><i class="fas fa-calendar"></i> ${v.date.toLocaleDateString()}</div>
-                    </div>
+            const grid = document.getElementById('videosGrid');
+            grid.innerHTML = pageVideos.map(id => `
+                <div class="video-card">
+                    <a href="https://youtube.com/watch?v=${id}" target="_blank">
+                        <div class="video-thumbnail">
+                            <img src="https://i.ytimg.com/vi/${id}/sddefault.jpg" alt="Video">
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-type">🎬 Video</div>
+                        </div>
+                    </a>
                 </div>
             `).join('');
-            
-            document.getElementById('videosContainer').innerHTML = html;
-            
-            // Pagination
-            const totalPages = Math.ceil(allData.length / VIDEOS_PER_PAGE);
-            let paginationHtml = '';
-            
-            if (videoPage > 1) {
-                paginationHtml += `<button class="page-btn prev" onclick="videoPage--; renderVideos()"><i class="fas fa-chevron-left"></i></button>`;
-            }
-            
-            for (let i = 1; i <= totalPages; i++) {
-                if (i === videoPage) {
-                    paginationHtml += `<button class="page-btn active">${i}</button>`;
-                } else if (i <= 3 || i > totalPages - 2 || (i >= videoPage - 1 && i <= videoPage + 1)) {
-                    paginationHtml += `<button class="page-btn" onclick="videoPage=${i}; renderVideos()">${i}</button>`;
-                }
-            }
-            
+
+            const totalPages = Math.ceil(videos.length / VIDEOS_PER_PAGE);
+            document.getElementById('videoPageNum').textContent = `Page ${videoPage} of ${totalPages}`;
+        }
+
+        function goToShortPage(page) {
+            shortPage = page;
+            renderShorts();
+            clearInterval(shortInterval);
+            shortInterval = setInterval(nextShortPage, 5000);
+        }
+
+        function nextShortPage() {
+            const totalPages = Math.ceil(shorts.length / SHORTS_PER_PAGE);
+            shortPage = (shortPage + 1) % totalPages;
+            renderShorts();
+        }
+
+        function nextVideoPage() {
+            const totalPages = Math.ceil(videos.length / VIDEOS_PER_PAGE);
             if (videoPage < totalPages) {
-                paginationHtml += `<button class="page-btn next" onclick="videoPage++; renderVideos()">Next <i class="fas fa-chevron-right"></i></button>`;
+                videoPage++;
+                renderVideos();
+                clearInterval(videoInterval);
+                videoInterval = setInterval(nextVideoPage, 10000);
             }
-            
-            document.getElementById('pagination').innerHTML = paginationHtml;
         }
 
-        function nextPage() {
-            const totalPages = Math.ceil(allData.length / SHORTS_PER_PAGE);
-            currentPage = (currentPage + 1) % totalPages;
-            renderShorts();
+        function prevVideoPage() {
+            if (videoPage > 1) {
+                videoPage--;
+                renderVideos();
+                clearInterval(videoInterval);
+                videoInterval = setInterval(nextVideoPage, 10000);
+            }
         }
 
-        function prevPage() {
-            const totalPages = Math.ceil(allData.length / SHORTS_PER_PAGE);
-            currentPage = (currentPage - 1 + totalPages) % totalPages;
-            renderShorts();
-        }
+        // AUTO INTERVALS
+        let shortInterval = setInterval(nextShortPage, 5000);
+        let videoInterval = setInterval(nextVideoPage, 10000);
 
-        function goToPage(p) {
-            currentPage = p;
-            renderShorts();
-        }
+        // ROSE PETALS FOLLOW MOUSE
+        document.addEventListener('mousemove', (e) => {
+            const petals = document.querySelectorAll('.rose-petal');
+            petals.forEach((petal, i) => {
+                const x = (e.clientX / window.innerWidth) * 50 - 25;
+                const y = (e.clientY / window.innerHeight) * 50 - 25;
+                petal.style.transform = `translate(${x * 0.5}px, ${y * 0.5}px)`;
+            });
+        });
 
-        function startAutoplay() {
-            clearInterval(autoplayInterval);
-            autoplayInterval = setInterval(() => {
-                nextPage();
-            }, 5000);
-        }
-
-        function openVideo(id) {
-            window.open(`https://youtube.com/watch?v=${id}`, '_blank');
-        }
-
-        // Load on start
-        window.addEventListener('load', loadVideos);
+        // INIT
+        renderShorts();
+        renderVideos();
     </script>
 </body>
 </html>

@@ -10,59 +10,197 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --rose-dark: #D4526E;
-            --rose-light: #F8C7D4;
-            --rose-pale: #FFE5EB;
-            --gold: #D4AF37;
+            --grass-green: #2ECC71;
+            --dark-green: #27AE60;
+            --sky-blue: #3498DB;
+            --light-sky: #87CEEB;
+            --sunshine: #FFD700;
             --white: #FFFFFF;
             --dark-gray: #2C3E50;
             --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.15);
         }
 
         html { scroll-behavior: smooth; }
+        
         body {
             font-family: 'Poppins', sans-serif;
-            background: var(--white);
             color: var(--dark-gray);
             overflow-x: hidden;
             position: relative;
+            margin: 0;
+            padding: 0;
         }
 
-        /* ROSE PETALS - REACT TO MOUSE */
-        .rose-petal {
+        /* CARTOON BACKGROUND - SKY & GRASS */
+        body::before {
+            content: '';
             position: fixed;
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(ellipse at 30% 30%, #FFB3D9, var(--rose-dark));
-            border-radius: 0 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(180deg, var(--light-sky) 0%, var(--sky-blue) 40%, var(--grass-green) 100%);
+            z-index: -2;
             pointer-events: none;
+        }
+
+        /* GRASS GROUND */
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(180deg, var(--grass-green) 0%, var(--dark-green) 100%);
+            z-index: -1;
+            pointer-events: none;
+            box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* CLOUDS SVG */
+        .cloud {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.9;
+        }
+
+        .cloud1 { top: 10%; left: 10%; width: 150px; animation: float 20s infinite; }
+        .cloud2 { top: 20%; right: 15%; width: 120px; animation: float 25s infinite reverse; }
+        .cloud3 { top: 15%; left: 50%; width: 140px; animation: float 22s infinite; }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(50px); }
+        }
+
+        /* SUN */
+        .sun {
+            position: fixed;
+            top: 50px;
+            right: 80px;
+            width: 80px;
+            height: 80px;
+            background: var(--sunshine);
+            border-radius: 50%;
+            z-index: 0;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+            animation: sunGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes sunGlow {
+            0%, 100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.5); }
+            50% { box-shadow: 0 0 60px rgba(255, 215, 0, 0.8); }
+        }
+
+        /* FLOWERS & GRASS DECORATIONS */
+        .grass-decor {
+            position: fixed;
+            bottom: 50px;
             z-index: 1;
-            animation: fall 10s infinite linear;
+            font-size: 40px;
+            opacity: 0.7;
+            animation: sway 3s ease-in-out infinite;
         }
 
-        @keyframes fall {
-            to { transform: translateY(100vh) rotateZ(360deg); opacity: 0; }
+        @keyframes sway {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(5deg); }
         }
 
-        .rose-petal:nth-child(1) { left: 5%; animation-delay: 0s; }
-        .rose-petal:nth-child(2) { left: 15%; animation-delay: 1.5s; }
-        .rose-petal:nth-child(3) { left: 25%; animation-delay: 3s; }
-        .rose-petal:nth-child(4) { left: 35%; animation-delay: 1s; }
-        .rose-petal:nth-child(5) { left: 45%; animation-delay: 2.5s; }
-        .rose-petal:nth-child(6) { left: 55%; animation-delay: 0.5s; }
-        .rose-petal:nth-child(7) { left: 65%; animation-delay: 2s; }
-        .rose-petal:nth-child(8) { left: 75%; animation-delay: 3.5s; }
-        .rose-petal:nth-child(9) { left: 85%; animation-delay: 1.2s; }
-        .rose-petal:nth-child(10) { left: 95%; animation-delay: 2.8s; }
+        .flower1 { left: 5%; animation-delay: 0s; }
+        .flower2 { right: 8%; animation-delay: 0.5s; }
+        .flower3 { left: 15%; animation-delay: 1s; }
+        .flower4 { right: 20%; animation-delay: 1.5s; }
+        .tree1 { left: 2%; font-size: 60px; bottom: 120px; }
+        .tree2 { right: 3%; font-size: 60px; bottom: 120px; }
 
-        /* HERO */
+        /* NAVIGATION */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--grass-green);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-logo-img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(46, 204, 113, 0.3));
+        }
+
+        .nav-logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--grass-green), var(--dark-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--grass-green), var(--dark-green));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--grass-green);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* MAIN CONTENT WRAPPER */
+        main {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* HERO SECTION */
         .hero {
             position: relative;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, var(--rose-pale) 0%, #FFF0F5 50%, #FFE5EB 100%);
+            padding-top: 80px;
             overflow: hidden;
         }
 
@@ -80,39 +218,41 @@
         }
 
         .hero-logo {
-            width: 140px;
-            height: 140px;
+            width: 200px;
+            height: 200px;
             margin: 0 auto 30px;
-            background: linear-gradient(135deg, var(--rose-dark), var(--gold));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 70px;
-            box-shadow: var(--shadow-lg);
-            animation: float 3s ease-in-out infinite;
-            border: 4px solid white;
+            animation: bounce 2s ease-in-out infinite;
+            filter: drop-shadow(0 8px 20px rgba(46, 204, 113, 0.3));
         }
 
-        @keyframes float {
+        .hero-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-40px); }
         }
 
         .hero h1 {
             font-family: 'Playfair Display', serif;
             font-size: 4.5rem;
-            background: linear-gradient(135deg, var(--rose-dark), var(--gold));
+            background: linear-gradient(135deg, var(--grass-green), var(--dark-green));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         .hero-tagline {
             font-family: 'Lora', serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: var(--dark-gray);
             margin-bottom: 40px;
+            font-weight: 500;
         }
 
         .hero-buttons {
@@ -134,81 +274,29 @@
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 24px rgba(46, 204, 113, 0.2);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--rose-dark), var(--gold));
+            background: linear-gradient(135deg, var(--grass-green), var(--dark-green));
             color: white;
         }
 
         .btn-primary:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(212, 82, 110, 0.4);
+            box-shadow: 0 12px 32px rgba(46, 204, 113, 0.4);
         }
 
         .btn-secondary {
             background: white;
-            color: var(--rose-dark);
-            border: 2px solid var(--rose-dark);
+            color: var(--grass-green);
+            border: 3px solid var(--grass-green);
         }
 
         .btn-secondary:hover {
-            background: var(--rose-pale);
+            background: var(--grass-green);
+            color: white;
             transform: translateY(-4px);
-        }
-
-        /* NAV */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 20px 40px;
-            z-index: 999;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--rose-dark), var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--dark-gray);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--rose-dark), var(--gold));
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
         }
 
         /* SECTIONS */
@@ -218,17 +306,26 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            background: rgba(255, 255, 255, 0.98);
+            margin: 0;
+            border-top: 5px solid var(--grass-green);
+            border-bottom: 5px solid var(--dark-green);
+        }
+
+        .section:nth-child(even) {
+            background: rgba(232, 245, 233, 0.95);
         }
 
         .section-title {
             font-family: 'Playfair Display', serif;
             font-size: 2.8rem;
-            color: var(--dark-gray);
+            color: var(--grass-green);
             text-align: center;
             margin-bottom: 60px;
             position: relative;
             display: inline-block;
             width: 100%;
+            font-weight: 900;
         }
 
         .section-title::after {
@@ -237,13 +334,16 @@
             bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--rose-dark), var(--gold));
+            width: 120px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--grass-green), var(--dark-green));
+            border-radius: 3px;
         }
 
         /* SHORTS SECTION */
-        .shorts-section { background: linear-gradient(135deg, var(--rose-pale) 0%, white 100%); }
+        .shorts-section { 
+            background: rgba(255, 255, 255, 0.98) !important;
+        }
 
         .carousel-container {
             max-width: 1400px;
@@ -261,18 +361,18 @@
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 24px rgba(46, 204, 113, 0.15);
             cursor: pointer;
             transition: all 0.4s ease;
             animation: slideUp 0.6s ease;
             flex-shrink: 0;
-            border: 3px solid transparent;
+            border: 4px solid var(--grass-green);
         }
 
         .short-card:hover {
-            border-color: var(--rose-light);
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(212, 82, 110, 0.2);
+            border-color: var(--dark-green);
+            transform: translateY(-12px);
+            box-shadow: 0 20px 50px rgba(46, 204, 113, 0.3);
         }
 
         @keyframes slideUp {
@@ -291,7 +391,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            background: linear-gradient(135deg, var(--rose-light), var(--gold));
+            background: linear-gradient(135deg, var(--grass-green), var(--sky-blue));
         }
 
         .carousel-dots {
@@ -306,25 +406,27 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(212, 82, 110, 0.3);
+            background: rgba(46, 204, 113, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
             border: 2px solid transparent;
         }
 
         .dot:hover {
-            background: rgba(212, 82, 110, 0.6);
+            background: rgba(46, 204, 113, 0.6);
         }
 
         .dot.active {
-            background: var(--rose-dark);
+            background: var(--grass-green);
             width: 30px;
             border-radius: 6px;
             transform: scale(1.2);
         }
 
         /* VIDEOS SECTION */
-        .videos-section { background: white; }
+        .videos-section { 
+            background: rgba(232, 245, 233, 0.95) !important;
+        }
 
         .videos-grid {
             display: grid;
@@ -338,17 +440,17 @@
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 24px rgba(46, 204, 113, 0.15);
             transition: all 0.4s ease;
             cursor: pointer;
-            border: 2px solid transparent;
+            border: 3px solid var(--grass-green);
             animation: slideUp 0.6s ease;
         }
 
         .video-card:hover {
             transform: translateY(-12px);
-            box-shadow: 0 20px 40px rgba(212, 82, 110, 0.2);
-            border-color: var(--rose-light);
+            box-shadow: 0 20px 50px rgba(46, 204, 113, 0.3);
+            border-color: var(--dark-green);
         }
 
         .video-card a {
@@ -360,13 +462,12 @@
         .video-thumbnail {
             width: 100%;
             height: 180px;
-            background: linear-gradient(135deg, var(--rose-light), var(--gold));
+            background: linear-gradient(135deg, var(--grass-green), var(--sky-blue));
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
-            font-size: 60px;
         }
 
         .video-thumbnail img {
@@ -379,7 +480,7 @@
             position: absolute;
             width: 60px;
             height: 60px;
-            background: rgba(212, 82, 110, 0.9);
+            background: rgba(46, 204, 113, 0.9);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -411,16 +512,18 @@
         .video-type {
             display: inline-block;
             font-size: 0.8rem;
-            padding: 4px 12px;
-            background: var(--rose-pale);
-            color: var(--rose-dark);
+            padding: 6px 14px;
+            background: var(--grass-green);
+            color: white;
             border-radius: 20px;
             font-weight: 600;
             margin-top: 8px;
         }
 
-        /* ABOUT */
-        .about-section { background: linear-gradient(135deg, var(--rose-pale) 0%, white 100%); }
+        /* ABOUT SECTION */
+        .about-section { 
+            background: rgba(255, 255, 255, 0.98) !important;
+        }
 
         .about-content {
             max-width: 900px;
@@ -453,23 +556,25 @@
         .icon-circle {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, var(--rose-dark), var(--gold));
+            background: linear-gradient(135deg, var(--grass-green), var(--dark-green));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 40px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 24px rgba(46, 204, 113, 0.2);
             transition: all 0.3s ease;
         }
 
         .about-icon:hover .icon-circle {
             transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(212, 82, 110, 0.3);
+            box-shadow: 0 15px 40px rgba(46, 204, 113, 0.4);
         }
 
-        /* SOCIAL */
-        .social-section { background: white; }
+        /* SOCIAL SECTION */
+        .social-section { 
+            background: rgba(232, 245, 233, 0.95) !important;
+        }
 
         .social-content {
             max-width: 900px;
@@ -488,8 +593,8 @@
         .social-btn {
             width: 200px;
             padding: 30px;
-            background: linear-gradient(135deg, var(--rose-pale), white);
-            border: 2px solid var(--rose-dark);
+            background: white;
+            border: 3px solid var(--grass-green);
             border-radius: 20px;
             text-decoration: none;
             display: flex;
@@ -497,25 +602,34 @@
             align-items: center;
             gap: 15px;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 24px rgba(46, 204, 113, 0.15);
         }
 
         .social-btn:hover {
-            background: linear-gradient(135deg, var(--rose-dark), var(--gold));
+            background: linear-gradient(135deg, var(--grass-green), var(--dark-green));
             color: white;
             transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(46, 204, 113, 0.4);
+            border-color: var(--dark-green);
         }
 
         .social-btn i {
             font-size: 40px;
+            color: var(--grass-green);
+        }
+
+        .social-btn:hover i {
+            color: white;
         }
 
         /* FOOTER */
         footer {
-            background: linear-gradient(135deg, var(--dark-gray), #1a1a1a);
+            background: linear-gradient(135deg, var(--dark-green), var(--grass-green));
             color: white;
             padding: 50px 40px;
             text-align: center;
+            position: relative;
+            z-index: 10;
         }
 
         .footer-buttons {
@@ -528,9 +642,9 @@
 
         .footer-btn {
             padding: 12px 30px;
-            background: linear-gradient(135deg, var(--rose-dark), var(--gold));
+            background: rgba(255, 255, 255, 0.2);
             color: white;
-            border: none;
+            border: 2px solid white;
             border-radius: 25px;
             text-decoration: none;
             display: inline-flex;
@@ -541,34 +655,48 @@
         }
 
         .footer-btn:hover {
+            background: white;
+            color: var(--grass-green);
             transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(212, 82, 110, 0.4);
         }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .nav-links { display: none; }
             .videos-grid { grid-template-columns: 1fr; }
-            .short-card { width: 200px; height: 320px; }
+            .hero-logo { width: 140px; height: 140px; }
+            .sun { width: 60px; height: 60px; right: 40px; top: 40px; }
+            .cloud1, .cloud2, .cloud3 { width: 100px; }
         }
     </style>
 </head>
 <body>
-    <!-- ROSE PETALS -->
-    <div class="rose-petal"></div>
-    <div class="rose-petal"></div>
-    <div class="rose-petal"></div>
-    <div class="rose-petal"></div>
-    <div class="rose-petal"></div>
-    <div class="rose-petal"></div>
-    <div class="rose-petal"></div>
-    <div class="rose-petal"></div>
-    <div class="rose-petal"></div>
-    <div class="rose-petal"></div>
+    <!-- CARTOON BACKGROUND ELEMENTS -->
+    <svg class="cloud cloud1" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 15 20 Q 15 10 25 10 Q 30 5 40 10 Q 50 5 55 15 Q 65 10 70 20 Z" fill="white" opacity="0.9"/>
+    </svg>
+    <svg class="cloud cloud2" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 15 20 Q 15 10 25 10 Q 30 5 40 10 Q 50 5 55 15 Q 65 10 70 20 Z" fill="white" opacity="0.85"/>
+    </svg>
+    <svg class="cloud cloud3" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 15 20 Q 15 10 25 10 Q 30 5 40 10 Q 50 5 55 15 Q 65 10 70 20 Z" fill="white" opacity="0.9"/>
+    </svg>
 
-    <!-- NAV -->
+    <div class="sun"></div>
+
+    <div class="grass-decor flower1">🌻</div>
+    <div class="grass-decor flower2">🌸</div>
+    <div class="grass-decor flower3">🌼</div>
+    <div class="grass-decor flower4">🌺</div>
+    <div class="grass-decor tree1">🌲</div>
+    <div class="grass-decor tree2">🌲</div>
+
+    <!-- NAVIGATION -->
     <nav>
-        <div class="nav-logo">🍳 My Minion Kitchen</div>
+        <div class="nav-left">
+            <img src="logo.png" alt="Logo" class="nav-logo-img">
+            <div class="nav-logo-text">My Minion Kitchen</div>
+        </div>
         <ul class="nav-links">
             <li><a href="#shorts">Shorts</a></li>
             <li><a href="#videos">Videos</a></li>
@@ -577,96 +705,102 @@
         </ul>
     </nav>
 
-    <!-- HERO -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <div class="hero-logo">🧑‍🍳</div>
-            <h1>My Minion Kitchen</h1>
-            <p class="hero-tagline">Tiny Utensils, Mighty Flavors ✨</p>
-            <div class="hero-buttons">
-                <a href="https://youtube.com/@myminionkitchen6201" target="_blank" class="btn btn-primary">
-                    <i class="fab fa-youtube"></i> YouTube
-                </a>
-                <a href="https://www.instagram.com/_my_minion_kitchen_" target="_blank" class="btn btn-secondary">
-                    <i class="fab fa-instagram"></i> Instagram
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- SHORTS -->
-    <section class="section shorts-section" id="shorts">
-        <h2 class="section-title">📱 Latest Shorts</h2>
-        <div class="carousel-container" id="shortsCarousel"></div>
-        <div class="carousel-dots" id="shortsDots"></div>
-    </section>
-
-    <!-- VIDEOS -->
-    <section class="section videos-section" id="videos">
-        <h2 class="section-title">🎬 All Videos</h2>
-        <div class="videos-grid" id="videosGrid"></div>
-        <div style="text-align: center; margin-top: 50px;">
-            <button onclick="prevVideoPage()" class="btn btn-primary" style="margin-right: 20px;">← Previous</button>
-            <span id="videoPageNum" style="font-size: 1.2rem; color: var(--dark-gray); margin: 0 20px;"></span>
-            <button onclick="nextVideoPage()" class="btn btn-primary" style="margin-left: 20px;">Next →</button>
-        </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section class="section about-section" id="about">
-        <h2 class="section-title">👨‍🍳 Welcome</h2>
-        <div class="about-content">
-            <p class="about-description">
-                Welcome to My Minion Kitchen! Where tiny utensils meet big imagination. Creative recipes, cute plating, homemade love. 🍽️✨
-            </p>
-            <div class="about-icons">
-                <div class="about-icon">
-                    <div class="icon-circle">🎨</div>
-                    <p><strong>Creative</strong></p>
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <div class="hero-logo">
+                    <img src="logo.png" alt="My Minion Kitchen">
                 </div>
-                <div class="about-icon">
-                    <div class="icon-circle">✨</div>
-                    <p><strong>Beautiful</strong></p>
-                </div>
-                <div class="about-icon">
-                    <div class="icon-circle">❤️</div>
-                    <p><strong>Loving</strong></p>
+                <h1>My Minion Kitchen</h1>
+                <p class="hero-tagline">Tiny Utensils, Mighty Flavors 🍳✨</p>
+                <div class="hero-buttons">
+                    <a href="https://youtube.com/@myminionkitchen6201" target="_blank" class="btn btn-primary">
+                        <i class="fab fa-youtube"></i> YouTube
+                    </a>
+                    <a href="https://www.instagram.com/_my_minion_kitchen_" target="_blank" class="btn btn-secondary">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- SOCIAL -->
-    <section class="section social-section" id="socials">
-        <h2 class="section-title">Connect</h2>
-        <div class="social-content">
-            <div class="social-buttons">
-                <a href="https://youtube.com/@myminionkitchen6201" target="_blank" class="social-btn">
-                    <i class="fab fa-youtube"></i>
-                    <span>YouTube</span>
-                </a>
-                <a href="https://www.instagram.com/_my_minion_kitchen_" target="_blank" class="social-btn">
-                    <i class="fab fa-instagram"></i>
-                    <span>Instagram</span>
-                </a>
+        <!-- SHORTS SECTION -->
+        <section class="section shorts-section" id="shorts">
+            <h2 class="section-title">📱 Latest Shorts</h2>
+            <div class="carousel-container" id="shortsCarousel"></div>
+            <div class="carousel-dots" id="shortsDots"></div>
+        </section>
+
+        <!-- VIDEOS SECTION -->
+        <section class="section videos-section" id="videos">
+            <h2 class="section-title">🎬 All Videos</h2>
+            <div class="videos-grid" id="videosGrid"></div>
+            <div style="text-align: center; margin-top: 50px;">
+                <button onclick="prevVideoPage()" class="btn btn-primary" style="margin-right: 20px;">← Previous</button>
+                <span id="videoPageNum" style="font-size: 1.2rem; color: var(--grass-green); margin: 0 20px; font-weight: 600;"></span>
+                <button onclick="nextVideoPage()" class="btn btn-primary" style="margin-left: 20px;">Next →</button>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-buttons">
-            <a href="https://youtube.com/@myminionkitchen6201" target="_blank" class="footer-btn">
-                <i class="fab fa-youtube"></i> Subscribe
-            </a>
-            <a href="https://www.instagram.com/_my_minion_kitchen_" target="_blank" class="footer-btn">
-                <i class="fab fa-instagram"></i> Follow
-            </a>
-        </div>
-        <p style="margin-top: 30px; opacity: 0.9;">
-            © 2024 My Minion Kitchen. Made with ❤️
-        </p>
-    </footer>
+        <!-- ABOUT SECTION -->
+        <section class="section about-section" id="about">
+            <h2 class="section-title">👨‍🍳 Welcome</h2>
+            <div class="about-content">
+                <p class="about-description">
+                    Welcome to My Minion Kitchen! Where tiny utensils meet big imagination. Creative recipes, cute plating, homemade love. 🍽️✨
+                </p>
+                <div class="about-icons">
+                    <div class="about-icon">
+                        <div class="icon-circle">🎨</div>
+                        <p><strong>Creative</strong></p>
+                    </div>
+                    <div class="about-icon">
+                        <div class="icon-circle">✨</div>
+                        <p><strong>Beautiful</strong></p>
+                    </div>
+                    <div class="about-icon">
+                        <div class="icon-circle">❤️</div>
+                        <p><strong>Loving</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOCIAL SECTION -->
+        <section class="section social-section" id="socials">
+            <h2 class="section-title">Connect With Me</h2>
+            <div class="social-content">
+                <div class="social-buttons">
+                    <a href="https://youtube.com/@myminionkitchen6201" target="_blank" class="social-btn">
+                        <i class="fab fa-youtube"></i>
+                        <span>YouTube</span>
+                    </a>
+                    <a href="https://www.instagram.com/_my_minion_kitchen_" target="_blank" class="social-btn">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <div class="footer-buttons">
+                    <a href="https://youtube.com/@myminionkitchen6201" target="_blank" class="footer-btn">
+                        <i class="fab fa-youtube"></i> Subscribe
+                    </a>
+                    <a href="https://www.instagram.com/_my_minion_kitchen_" target="_blank" class="footer-btn">
+                        <i class="fab fa-instagram"></i> Follow
+                    </a>
+                </div>
+                <p style="margin-top: 30px; opacity: 0.95;">
+                    © 2024 My Minion Kitchen. Made with ❤️
+                </p>
+            </div>
+        </footer>
+    </main>
 
     <script>
         // SHORTS DATA
@@ -686,7 +820,7 @@
             "NmiHg9uzMnQ","T1KkYRUqis0","3P06wjPW2PU","2cxZX8v8PA4","cdjCRUV4GHQ",
             "UZxcTflXLs8","1yFaW2UfBvc","_NjJ5zmbNvI","B43YwLj1XlE","kLmo7I-c3lU",
             "FByZ9zgW_EY","9KTca5FjP7A",
-    ];
+        ];
 
         // VIDEOS DATA
         const videos = [
@@ -703,7 +837,7 @@
 
         let shortPage = 0;
         let videoPage = 1;
-        const SHORTS_PER_PAGE = 3;
+        const SHORTS_PER_PAGE = 5;
         const VIDEOS_PER_PAGE = 8;
 
         // RENDER SHORTS
@@ -715,7 +849,7 @@
             carousel.innerHTML = pageShorts.map((id) => `
                 <div class="short-card">
                     <a href="https://youtube.com/shorts/${id}" target="_blank">
-                        <img src="https://i.ytimg.com/vi/${id}/sddefault.jpg" class="short-thumbnail" alt="Short" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22320%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22200%22 height=%22320%22/%3E%3C/svg%3E'">
+                        <img src="https://i.ytimg.com/vi/${id}/sddefault.jpg" class="short-thumbnail" alt="Short" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22320%22%3E%3Crect fill=%22%23e8f5e9%22 width=%22200%22 height=%22320%22/%3E%3C/svg%3E'">
                     </a>
                 </div>
             `).join('');
@@ -788,16 +922,6 @@
         // AUTO INTERVALS
         let shortInterval = setInterval(nextShortPage, 5000);
         let videoInterval = setInterval(nextVideoPage, 10000);
-
-        // ROSE PETALS FOLLOW MOUSE
-        document.addEventListener('mousemove', (e) => {
-            const petals = document.querySelectorAll('.rose-petal');
-            petals.forEach((petal, i) => {
-                const x = (e.clientX / window.innerWidth) * 50 - 25;
-                const y = (e.clientY / window.innerHeight) * 50 - 25;
-                petal.style.transform = `translate(${x * 0.5}px, ${y * 0.5}px)`;
-            });
-        });
 
         // INIT
         renderShorts();
